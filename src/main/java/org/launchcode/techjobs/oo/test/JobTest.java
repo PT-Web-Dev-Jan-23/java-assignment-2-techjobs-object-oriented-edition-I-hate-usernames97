@@ -14,17 +14,6 @@ import static org.junit.Assert.*;
 @RunWith(JUnit4.class)
 public class JobTest {
 
-    Job testJob1;
-    Job testJob2;
-
-@Before
-public void testData(){
-
-    testJob1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-    testJob2 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-}
-
-
 @Test
 public void testSettingJobId(){
 
@@ -36,45 +25,56 @@ public void testSettingJobId(){
 
 @Test
 public void testJobConstructorSetsAllFields(){
+    Job testJob1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
 
-    String spec = "testing the full Constructor sets all fields ";
-    assertEquals(spec, "Product tester", testJob1.getName());
-    assertTrue(spec, testJob1 instanceof Job);
+    assertEquals("Product tester", testJob1.getName());
+    assertTrue(testJob1.getName() instanceof String);
 
-    assertEquals(spec, "ACME", testJob1.getEmployer().getValue());
-    assertTrue(spec, testJob1.getEmployer() instanceof Employer);
+    assertEquals("ACME", testJob1.getEmployer().getValue());
+    assertTrue(testJob1.getEmployer() instanceof Employer);
 
-    assertEquals(spec, "Desert", testJob1.getLocation().getValue());
-    assertTrue(spec, testJob1.getLocation() instanceof Location);
+    assertEquals("Desert", testJob1.getLocation().getValue());
+    assertTrue(testJob1.getLocation() instanceof Location);
 
-    assertEquals(spec, "Quality control", testJob1.getPositionType().getValue());
-    assertTrue(spec, testJob1.getPositionType() instanceof PositionType);
+    assertEquals("Quality control", testJob1.getPositionType().getValue());
+    assertTrue(testJob1.getPositionType() instanceof PositionType);
 
-    assertEquals(spec, "Persistence", testJob1.getCoreCompetency().getValue());
-    assertTrue(spec, testJob1.getCoreCompetency() instanceof CoreCompetency);
+    assertEquals("Persistence", testJob1.getCoreCompetency().getValue());
+    assertTrue(testJob1.getCoreCompetency() instanceof CoreCompetency);
 }
 @Test
 public void testJobsForEquality(){
+   Job testJob1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+   Job testJob2 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+
     assertFalse(testJob1.equals(testJob2));
 }
 
 @Test
 public void testToStringStartsAndEndsWithNewLine(){
-
-    String spec = " Job class toString starts and ends with new line";
+    Job testJob1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
 
     char testCharStart = testJob1.toString().charAt(0);
     char testCharEnd = testJob1.toString().charAt(testJob1.toString().length() - 1);
 
-    assertEquals(spec, '\n' , testCharStart);
-    assertEquals(spec, '\n', testCharEnd);
+    assertEquals('\n' , testCharStart);
+    assertEquals('\n', testCharEnd);
 }
 
 @Test
 public void testToStringContainsCorrectLabelsAndData(){
-    String spec = " Job class toString ";
+    Job testJob1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+
     String testString = testJob1.toString();
-    assertEquals(spec, testString, testJob1.toString());
+    assertEquals(testString, testJob1.toString());
+
 }
 
+    @Test
+    public void testToStringHandlesEmptyField() {
+
+        Job testJob = new Job("Product tester", new Employer(""), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        String emptyString = testJob.toString();
+        assertEquals(emptyString, testJob.toString());
+    }
 }
